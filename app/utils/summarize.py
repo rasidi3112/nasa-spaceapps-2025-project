@@ -28,7 +28,6 @@ def generate_summary(text: str, max_sentences: int = 3) -> str:
     centroid = embeddings.mean(dim=0)
     scores = util.cos_sim(centroid, embeddings)[0]
 
-    # Ambil kalimat top-N
     top_idx = scores.argsort(descending=True)[:max_sentences]
     selected_sentences = [sentences[i] for i in top_idx]
 
