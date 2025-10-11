@@ -41,11 +41,13 @@ Aplikasi ini dirancang untuk **ilmuwan 🧪**, **manajer program 🧭**, dan **a
 
 ### 🔍 Insight Feed & Citation Trail
 - 🧭 Timeline penemuan penting.
-
-### APLIKASI WEB SAYA MASIH DALAM PENGEMBANGAN
 - 🔗 Tautan langsung ke teks lengkap, dataset **OSDR**, dan laporan **NASA Task Book**.
 
 
 ## 🌠 Misi Kami
 Membantu komunitas astrobiologi memahami **bagaimana kehidupan beradaptasi di luar Bumi** 🌙  
 dan **mempercepat inovasi misi eksplorasi antariksa manusia.** 🌍✨
+
+
+
+### APLIKASI WEB SAYA MASIH DALAM PENGEMBANGAN
