@@ -1,6 +1,6 @@
 # app/utils/persona.py
 from typing import List
-from db import list_publications
+from app.db import list_publications
 
 # Mock data fallback
 MOCK_PUBLICATIONS = ["OSDR-244", "NASA-19-EPXR-0012", "MarsHabitat2035"]

@@ -10,7 +10,7 @@ from app.utils.embedding import semantic_search
 from app.utils.summarizer import generate_summary # type: ignore
 from app.utils.graph import fetch_subgraph
 from app.utils.persona import personalize_insights
-from db import get_publication_by_id, list_publications
+from app.db import get_publication_by_id, list_publications
 
 app = FastAPI(
     title="AstroBio Insight Navigator API",

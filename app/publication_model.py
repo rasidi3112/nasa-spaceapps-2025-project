@@ -1,44 +1,31 @@
-# app/db.py
-from typing import List, Optional
-import csv
-from app.publication_model import PublicationModel
+# app/publication_model.py
+from pydantic import BaseModel # type: ignore
+from typing import Optional
 
-CSV_PATH = "data/SB_publication_PMC.csv"
-
-# Load semua publikasi dari CSV
-def load_publications() -> List[PublicationModel]: # type: ignore
-    publications = []
-    with open(CSV_PATH, newline='', encoding='utf-8') as f:
-        reader = csv.reader(f)
-        headers = next(reader)  # Skip header
-        for row in reader:
-            publications.append(PublicationModel.from_row(row))
-    return publications
-
-# Cache publikasi di memory
-PUBLICATIONS = load_publications()
-
-def list_publications(
-    page: int = 1,
-    page_size: int = 20,
-    organism: Optional[str] = None,
-    mission: Optional[str] = None,
+class PublicationModel(BaseModel):
+    id: str
+    title: Optional[str] = None
+    authors: Optional[str] = None
+    year: Optional[str] = None
+    abstract: Optional[str] = None
+    mission: Optional[str] = None
+    organism: Optional[str] = None
     system: Optional[str] = None
-) -> List[PublicationModel]: # type: ignore
-    filtered = PUBLICATIONS
-    if organism:
-        filtered = [p for p in filtered if p.organism and p.organism.lower() == organism.lower()]
-    if mission:
-        filtered = [p for p in filtered if p.mission and p.mission.lower() == mission.lower()]
-    if system:
-        filtered = [p for p in filtered if p.system and p.system.lower() == system.lower()]
-    
-    start = (page - 1) * page_size
-    end = start + page_size
-    return filtered[start:end]
+    keywords: Optional[str] = None
 
-def get_publication_by_id(pub_id: str) -> PublicationModel:
-    for p in PUBLICATIONS:
-        if p.id == pub_id:
-            return p
-    raise ValueError(f"Publication {pub_id} not found")
+    @staticmethod
+    def from_dict(data: dict):
+        """
+        Membuat instance PublicationModel dari dictionary (row CSV)
+        """
+        return PublicationModel(
+            id=data.get("id", ""),
+            title=data.get("title"),
+            authors=data.get("authors"),
+            year=data.get("year"),
+            abstract=data.get("abstract"),
+            mission=data.get("mission"),
+            organism=data.get("organism"),
+            system=data.get("system"),
+            keywords=data.get("keywords"),
+        )
