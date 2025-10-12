@@ -1,6 +1,6 @@
 # app/utils/persona.py
 from typing import List
-from app.db import list_publications
+from app.db import list_publications_objects as list_publications  # Ganti import agar sesuai db.py
 
 # Mock data fallback
 MOCK_PUBLICATIONS = ["OSDR-244", "NASA-19-EPXR-0012", "MarsHabitat2035"]

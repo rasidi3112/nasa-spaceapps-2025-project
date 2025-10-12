@@ -14,17 +14,32 @@ def fetch_subgraph(seed: str, depth: int, mission: Optional[str]):
     """
     nodes = {}
     edges = []
+
     with driver.session() as session:
         result = session.run(query, seed=seed, depth=depth, mission=mission)
         for record in result:
             path = record["path"]
             for node in path.nodes:
-                nodes[node.id] = dict(node)
+                # Pastikan setiap node punya id, title, label
+                node_id = str(node.get("id") or node.id)
+                node_title = node.get("title") or node.get("name") or f"Node {node_id}"
+                node_label = node.get("label") or list(node.labels)[0] if node.labels else "Unknown"
+
+                nodes[node_id] = {
+                    "id": node_id,
+                    "title": node_title,
+                    "label": node_label,
+                    **dict(node)  # simpan properti lain jika ada
+                }
+
             for rel in path.relationships:
+                start_id = str(rel.start_node.get("id") or rel.start_node.id)
+                end_id = str(rel.end_node.get("id") or rel.end_node.id)
                 edges.append({
-                    "source": rel.start_node["id"],
-                    "target": rel.end_node["id"],
+                    "source": start_id,
+                    "target": end_id,
                     "type": rel.type,
                 })
+
     driver.close()
     return {"nodes": list(nodes.values()), "edges": edges}

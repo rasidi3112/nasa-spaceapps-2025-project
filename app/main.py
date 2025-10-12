@@ -7,7 +7,7 @@ from fastapi.staticfiles import StaticFiles # type: ignore
 from fastapi.responses import FileResponse # type: ignore
 from pydantic import BaseModel # type: ignore
 from app.utils.embedding import semantic_search
-from app.utils.summarizer import generate_summary # type: ignore
+from app.utils.summarize import generate_summary # type: ignore
 from app.utils.graph import fetch_subgraph
 from app.utils.persona import personalize_insights
 from app.db import get_publication_by_id, list_publications
@@ -94,6 +94,7 @@ async def get_publications(
 async def get_publication(pub_id: str):
     return get_publication_by_id(pub_id)
 
+
 @app.get("/search", response_model=SearchResponse)
 async def search_publications(
     q: str = Query(..., min_length=2, description="Kata kunci atau pertanyaan"),
@@ -107,11 +108,18 @@ async def summarize_publication(req: SummaryRequest):
     publication = get_publication_by_id(req.publication_id)
     return generate_summary(publication, req.focus_section, req.persona)
 
+
+
+
 @app.get("/graph", response_model=GraphResponse)
 async def knowledge_graph(
     seed: str,
     depth: int = 2,
     filter_mission: Optional[str] = None
+
+
+
+
 ):
     return fetch_subgraph(seed, depth, filter_mission)
 

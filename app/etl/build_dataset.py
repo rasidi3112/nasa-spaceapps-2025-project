@@ -52,6 +52,6 @@ def save_json(records, path: Path):
         json.dump(records, f, indent=2)
 
 if __name__ == "__main__":
-    csv_rows = load_csv(Path("data/nasa_bioscience_publications.csv"))
+    csv_rows = load_csv(Path("data/SB_publication_PMC.csv.csv"))
     records = build_publication_records(csv_rows)
     save_json(records, DATA_DIR / "publications.json")
