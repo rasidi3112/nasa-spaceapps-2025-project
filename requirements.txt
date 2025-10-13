@@ -6,5 +6,5 @@ requests
 beautifulsoup4
 pydantic
 qdrant-client
-torch>=2.2.0   # tambahkan ini
-sentence-transformers>=2.2.2  # pilih versi stabil yang sesuai torch
+torch>=2.2.0 
+sentence-transformers>=2.2.2
